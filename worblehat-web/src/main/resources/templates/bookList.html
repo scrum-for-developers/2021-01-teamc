@@ -49,6 +49,7 @@
 		<ul style="list-style-type:none">
 			<li><a th:href="@{/insertBooks}">Add a new book</a></li>
 		</ul>
+		<h6><span th:text="${@environment.getProperty('info.version')}"></span></h6>
 	</div>
 	<div style="float:left;margin-left: 50px;">
 		<h1 id="welcome_heading"><span th:text="${@environment.getProperty('spring.application.name')}"></span></h1>

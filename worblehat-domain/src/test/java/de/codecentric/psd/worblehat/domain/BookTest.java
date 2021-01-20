@@ -42,6 +42,19 @@ public class BookTest {
   }
 
   @Test
+  public void shouldReturnFalseWhenEditionisDifferent() {
+    Book anotherCopy =
+        new Book(
+            BOOK.getTitle(),
+            BOOK.getAuthor(),
+            BOOK.getEdition(),
+            BOOK.getIsbn(),
+            BOOK.getYearOfPublication());
+    anotherCopy.setEdition("10");
+    assertThat(BOOK.isSameCopy(anotherCopy), is(false));
+  }
+
+  @Test
   public void shouldReturnTrueWhenAllButTitleAndAuthorAreDifferent() {
     Book anotherCopy =
         new Book(
@@ -50,7 +63,6 @@ public class BookTest {
             BOOK.getEdition(),
             BOOK.getIsbn(),
             BOOK.getYearOfPublication());
-    anotherCopy.setEdition("2000");
     anotherCopy.setIsbn("123456789X");
     anotherCopy.setYearOfPublication(2010);
     assertThat(BOOK.isSameCopy(anotherCopy), is(true));
