@@ -5,32 +5,76 @@
 	<style>
         tr:nth-child(odd) {
             background: lightgrey;
+        }
+        table, th, tr,td {
+            border: 1px solid black;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            padding: 30px 5px;
+			padding-right:35px;
+        }
+        .make-center {
+            text-align: center;
+            padding: 10px;
+        }
+        a {
+            text-decoration: none;
+        }
+        li > a {
+			font-size:20px;
+        }
+
+        a:link, a:visited {
+            color: blue;
+        }
+
+        a:hover {
+            color: red;
+        }
+
+	</style>
 </head>
 <body>
-	
-	<table class="bookList">
-	<thead>
-		<tr>
-			<th>Title</th>
-			<th>Author</th>
-			<th>Year</th>
-			<th>Edition</th>
-			<th>ISBN</th>
-			<th>Borrower</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr th:each="book : ${books}">
-			<td th:text="${book.title}">Harry Potter</td>
-			<td th:text="${book.author}">J.K. Rowling</td>
-			<td th:text="${book.yearOfPublication}">2002</td>
-			<td th:text="${book.edition}">1st</td>
-			<td th:text="${book.isbn}">123456</td>
-			<td th:text="${book?.borrowing?.borrowerEmailAddress}">someone@codecentric.de</td>
-		</tr>
-	</tbody>
-	</table>
-	<hr />
-	<a th:href="@{/}">Back to Home</a>
+	<div style="float:left">
+		<h3>Users</h3>
+		<ul style="list-style-type:none">
+			<li><a th:href="@{/bookList}">Show all Books</a></li>
+			<li><a th:href="@{/borrow}">Borrow Book</a></li>
+			<li><a th:href="@{/returnAllBooks}">Return all Books</a></li>
+		</ul>
+		<h3>Administrator</h3>
+		<ul style="list-style-type:none">
+			<li><a th:href="@{/insertBooks}">Add a new book</a></li>
+		</ul>
+	</div>
+	<div style="float:left;margin-left: 50px;">
+		<h1 id="welcome_heading"><span th:text="${@environment.getProperty('spring.application.name')}"></span></h1>
+		<table class="bookList">
+			<thead style="text-align: left;">
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th class="make-center">Year</th>
+					<th class="make-center">Edition</th>
+					<th class="make-center">ISBN</th>
+					<th class="make-center">Borrower</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book : ${books}">
+					<td th:text="${book.title}">Harry Potter</td>
+					<td th:text="${book.author}">J.K. Rowling</td>
+					<td th:text="${book.yearOfPublication}" class="make-center">2002</td>
+					<td th:text="${book.edition}" class="make-center">1st</td>
+					<td th:text="${book.isbn}" class="make-center">123456</td>
+					<td th:text="${book?.borrowing?.borrowerEmailAddress}" class="make-center">someone@codecentric.de</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr />
+	</div>
 </body>
 </html>
