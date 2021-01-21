@@ -84,6 +84,27 @@ public class InsertBookControllerTest {
     assertThat(navigateTo, is("redirect:bookList"));
   }
 
+  @Test
+  public void shouldCreate10BooksAndNavigateToBookList() {
+    setupFormDataMultipleBooks();
+
+    when(bookService.bookExists(TEST_BOOK.getIsbn())).thenReturn(true);
+    when(bookService.createBook(any(), any(), any(), any(), anyInt()))
+        .thenReturn(Optional.of(TEST_BOOK));
+
+    String navigateTo = insertBookController.processSubmit(bookDataFormData, bindingResult);
+
+    verify(bookService, times(10))
+        .createBook(
+            TEST_BOOK.getTitle(),
+            TEST_BOOK.getAuthor(),
+            TEST_BOOK.getEdition(),
+            TEST_BOOK.getIsbn(),
+            TEST_BOOK.getYearOfPublication());
+
+    assertThat(navigateTo, is("redirect:bookList"));
+  }
+
   private void verifyBookIsCreated() {
     verify(bookService)
         .createBook(
@@ -100,5 +121,14 @@ public class InsertBookControllerTest {
     bookDataFormData.setEdition(TEST_BOOK.getEdition());
     bookDataFormData.setIsbn(TEST_BOOK.getIsbn());
     bookDataFormData.setYearOfPublication(String.valueOf(TEST_BOOK.getYearOfPublication()));
+  }
+
+  private void setupFormDataMultipleBooks() {
+    bookDataFormData.setTitle(TEST_BOOK.getTitle());
+    bookDataFormData.setAuthor(TEST_BOOK.getAuthor());
+    bookDataFormData.setEdition(TEST_BOOK.getEdition());
+    bookDataFormData.setIsbn(TEST_BOOK.getIsbn());
+    bookDataFormData.setYearOfPublication(String.valueOf(TEST_BOOK.getYearOfPublication()));
+    bookDataFormData.setAmount("10");
   }
 }

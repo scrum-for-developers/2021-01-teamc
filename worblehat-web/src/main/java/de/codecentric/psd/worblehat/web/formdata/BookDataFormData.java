@@ -27,6 +27,15 @@ public class BookDataFormData {
   @NotEmpty(message = "{empty.bookDataFormData.author}")
   private String author;
 
+  @NotEmpty(message = "{empty.bookDataFormData.amount}")
+  @Numeric(message = "{notvalid.bookDataFormData.amount}")
+  @Length(message = "{invalid.length.bookDataFormData.amount}", min = 1)
+  private String amount = "1";
+
+  public String getAmount() {
+    return this.amount;
+  }
+
   public String getYearOfPublication() {
     return yearOfPublication;
   }
@@ -67,6 +76,10 @@ public class BookDataFormData {
     this.edition = edition;
   }
 
+  public void setAmount(String amount) {
+    this.amount = amount;
+  }
+
   @Override
   public String toString() {
     return "BookDataFormData [title="
@@ -79,6 +92,8 @@ public class BookDataFormData {
         + isbn
         + ", author="
         + author
+        + ", amount="
+        + this.amount
         + "]";
   }
 }

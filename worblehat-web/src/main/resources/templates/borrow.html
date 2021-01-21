@@ -5,19 +5,33 @@
 </head>
 <body>
 	<h1>Borrow Book</h1>
-
 	<form th:object="${borrowFormData}" method="POST">
-		ISBN:<input id="isbn" type="text" th:field="*{isbn}" />
-		<span id="isbn.error" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
-		<br />
-		Email:<input id="email" type="text" th:field="*{email}" />
-		<span id="email.error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-		<br />
-		<input type="submit" id="borrowBook" value="Borrow Book" />
-		<hr />
-		<a th:href="@{/}">Back to Home</a>
-	</form>
+		<table>
+			<thead>
+			<th></th>
+			<th></th>
+			<th></th>
+			</thead>
+			<tr>
+				<td>ISBN:</td>
+				<td><input id="isbn" type="text" th:field="*{isbn}" /></td>
+				<td><span id="isbn.error" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input id="email" type="text" th:field="*{email}" /></td>
+				<td><span id="email.error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td colspan="1">
+					<input type="submit" id="borrowBook" value="Borrow Book" style="width:100%" />
+				</td>
+			</tr>
+		</table>
 
+	</form>
+	<a th:href="@{/}">Back to Home</a>
 	<h6><span th:text="${@environment.getProperty('info.version')}"></span></h6>
 </body>
 </html>

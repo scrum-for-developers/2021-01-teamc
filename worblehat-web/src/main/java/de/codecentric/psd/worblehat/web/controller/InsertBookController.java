@@ -42,21 +42,23 @@ public class InsertBookController {
     if (result.hasErrors()) {
       return "insertBooks";
     } else {
+      int amount = Integer.parseInt(bookDataFormData.getAmount());
+      for (int i = 0; i < amount; i++) {
+        Optional<Book> book =
+            bookService.createBook(
+                bookDataFormData.getTitle(),
+                bookDataFormData.getAuthor(),
+                bookDataFormData.getEdition(),
+                bookDataFormData.getIsbn(),
+                Integer.parseInt(bookDataFormData.getYearOfPublication()));
 
-      Optional<Book> book =
-          bookService.createBook(
-              bookDataFormData.getTitle(),
-              bookDataFormData.getAuthor(),
-              bookDataFormData.getEdition(),
-              bookDataFormData.getIsbn(),
-              Integer.parseInt(bookDataFormData.getYearOfPublication()));
-
-      if (book.isPresent()) {
-        LOG.info("new book instance is created: " + book.get());
-      } else {
-        LOG.debug("failed to create new book with: " + bookDataFormData.toString());
+        if (book.isPresent()) {
+          LOG.info("new book instance is created: " + book.get());
+        } else {
+          LOG.debug("failed to create new book with: " + bookDataFormData.toString());
+        }
       }
-      return "redirect:bookList";
     }
+    return "redirect:bookList";
   }
 }
